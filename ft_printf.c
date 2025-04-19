@@ -1,4 +1,4 @@
-#include "libft/libft.h"
+#include "../libft/libft/libft.h"
 #include <stdarg.h>
 
 int	ft_printf(const char *str, ...)
@@ -7,13 +7,15 @@ int	ft_printf(const char *str, ...)
 	va_list	args;
 	int		i;
 
+	i = 0;
+	count = 0;
 	va_start(args, str);
 	while (str[i])
 	{
-		if (*str != '%')
+		if (str[i] != '%')
 		{
-			i++;
 			write(1, &str[i], 1);
+			i++;
 			count++;
 		}
 		else
@@ -21,7 +23,7 @@ int	ft_printf(const char *str, ...)
 			i++;
 			if (str[i] == 'c')
 			{
-				ft_putchar_fd(va_arg(args, char), 1);
+				ft_putchar_fd((char)va_arg(args, int), 1);
 				i++;
 				count++;
 			}
@@ -45,6 +47,7 @@ int	main(void)
 	int		d = 1;
 
 	int		count = ft_printf("Print an a: %c\nPrint a 1: %d\n", c, d);
+	printf("\n");
 	int		count2 = printf("Print an a: %c\nPrint a 1: %d\n", c, d);
 	
 	printf("Count 1: %d\nCount 2: %d\n", count, count2);
