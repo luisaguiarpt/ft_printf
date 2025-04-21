@@ -1,4 +1,5 @@
-#include "../libft/libft/libft.h"
+#include "libft/libft.h"
+#include "ft_printf.h"
 #include <stdarg.h>
 
 int	ft_printf(const char *str, ...)
@@ -14,25 +15,14 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] != '%')
 		{
-			write(1, &str[i], 1);
 			i++;
 			count++;
+			write(1, &str[i], 1);
 		}
 		else
 		{
 			i++;
-			if (str[i] == 'c')
-			{
-				ft_putchar_fd((char)va_arg(args, int), 1);
-				i++;
-				count++;
-			}
-			else if (str[i] == 'd')
-			{
-				ft_putnbr_fd(va_arg(args, int), 1);
-				i++;
-				count++;
-			}
+			get_function(str[i])(va_arg(args, int));
 		}
 	}
 	va_end(args);
@@ -56,13 +46,13 @@ void	*get_function(char c)
 	fnct_arr[4].fs = 'u';
 	fnct_arr[4].fnct = ft_putnbr_u;
 	fnct_arr[5].fs = 'x';
-	fnct_arr[5].fnct = ft_putnbr_hex;
+	fnct_arr[5].fnct = ft_put_hex;
 	fnct_arr[6].fs = 'X';
-	fnct_arr[6].fnct = ft_putnbr_hex;
+	fnct_arr[6].fnct = ft_put_hex_up;
 	fnct_arr[7].fs = 'p';
-	fnct_arr[7].fnct = ft_putnbr_hex;
+	fnct_arr[7].fnct = ft_put_ptr;
 	fnct_arr[8].fs = '%';
-	fnct_arr[8].fnct = ft_print_percent;
+	fnct_arr[8].fnct = ft_put_percent;
 	while (++i < 9)
 		if (c == fnct_arr[i].fs)
 			return (fnct_arr[i].fnct);
