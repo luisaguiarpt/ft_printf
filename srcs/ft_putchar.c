@@ -6,13 +6,14 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:04:30 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/13 14:04:34 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:22:15 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar(char c)
+size_t	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }

@@ -6,19 +6,23 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:09:09 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/15 13:45:34 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:23:39 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *s)
+size_t	ft_putstr(char *s)
 {
+	size_t	i;
+
+	i = 0;
 	if (!s)
 		return ;
-	while (*s)
+	while (s[i])
 	{
-		write(1, s, 1);
-		s++;
+		write(1, &s[i], 1);
+		i++;
 	}
+	return (i);
 }
