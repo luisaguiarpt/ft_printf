@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   try2_printf.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
+/*   Updated: 2025/04/25 22:10:42 by ldias-da         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
@@ -6,7 +18,7 @@ void	*get_function(char c);
 
 int	ft_printf(const char *str, ...)
 {
-	int		count;
+	size_t	count;
 	va_list	args;
 	int		i;
 
@@ -21,12 +33,7 @@ int	ft_printf(const char *str, ...)
 			write(1, &str[i++], 1);
 		}
 		else
-		{
-			if (str[i] == 'c')
-				get_function(str[i])(va_arg(args, int));
-			else if (str[i] == 'd')
-				get_function(str[i])(va_arg(args, int));
-		}
+			count += get_function(str[i]);
 	}
 	va_end(args);
 	return (count);
@@ -35,19 +42,19 @@ int	ft_printf(const char *str, ...)
 void	*get_function(char c)
 {
 	if (c == 'c')
-		return (ft_putchar);
+		return (ft_putchar(va_arg(args, char)));
 	else if (c == 's')
-		return (ft_putstr);
+		return (ft_putstr(va_arg(args, char *)));
 	else if (c == 'i' || c == 'd')
-		return (ft_putnbr);
+		return (ft_putnbr(va_arg(args, int)));
 	else if (c == 'u')
-		return (ft_putnbr_u);
+		return (ft_putnbr_u(va_arg(args, unsigned int)));
 	else if (c == 'x')
-		return (ft_puthex);
+		return (ft_puthex(va_arg(args, int)));
 	else if (c == 'X')
-		return (ft_puthex_u);
+		return (ft_puthex_u(va_arg(args, int)));
 	else if (c == 'p')
-		return (ft_puthex);
+		return (ft_puthex(va_arg(args, int)));
 }
 
 #include <stdio.h>

@@ -1,45 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/15 10:43:02 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/25 21:50:58 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_puthex(unsigned int n)
+size_t	ft_puthex(unsigned int n)
 {
 	unsigned char	c;
 	const char		*hex;
+	unsigned int	count;
 
+	count = 0;
 	hex = "0123456789abcdef";
 	if (n > 15)
-		ft_puthex(n / 16);
+		count += ft_puthex(n / 16);
 	c = hex[n % 16];
 	write(1, &c, 1);
+	count++;
+	return (count);
 }
 
 #include <stdio.h>
 
 int	main(void)
 {
-	ft_puthex(0);
+	unsigned int	n = 0;
+	n = ft_puthex(0);
+	printf("|%u\n", n);
 	printf("|%x\n", 0);
-	ft_puthex(5);
+	n = ft_puthex(5);
+	printf("|%u\n", n);
 	printf("|%x\n", 5);
-	ft_puthex(42);
+	n = ft_puthex(42);
+	printf("|%u\n", n);
 	printf("|%x\n", 42);
-	ft_puthex(101230);
+	n = ft_puthex(101230);
+	printf("|%u\n", n);
 	printf("|%x\n", 101230);
-	ft_puthex(-123094);
+	n = ft_puthex(-123094);
+	printf("|%u\n", n);
 	printf("|%x\n", -123094);
-	ft_puthex(-2147483647);
+	n = ft_puthex(-2147483647);
+	printf("|%u\n", n);
 	printf("|%x\n", -2147483647);
-	ft_puthex(2147483647);
+	n = ft_puthex(2147483647);
+	printf("|%u\n", n);
 	printf("|%x\n", 2147483647);
 }
