@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*   ft_puthex_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 20:40:59 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:49:51 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-size_t	ft_puthex(unsigned int n, int up)
+size_t	ft_puthex_u(unsigned long n)
 {
 	unsigned char	c;
 	const char		*hex;
 	unsigned int	count;
 
 	count = 0;
-	if (up)
-		hex = "0123456789ABCDEF";
-	else
-		hex = "0123456789abcdef";
+	hex = "0123456789abcdef";
 	if (n > 15)
-		count += ft_puthex(n / 16, up);
+		count += ft_puthex_u(n / 16);
 	c = hex[n % 16];
+	if (count == 0)
+		write(1, "0x", 2);
 	write(1, &c, 1);
 	count++;
 	return (count);

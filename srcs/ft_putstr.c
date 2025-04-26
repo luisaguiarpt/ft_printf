@@ -6,11 +6,11 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:09:09 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/21 21:23:39 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:36:22 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft/libft.h"
 
 size_t	ft_putstr(char *s)
 {
@@ -18,7 +18,7 @@ size_t	ft_putstr(char *s)
 
 	i = 0;
 	if (!s)
-		return ;
+		return (ft_putstr("(null)"));
 	while (s[i])
 	{
 		write(1, &s[i], 1);
