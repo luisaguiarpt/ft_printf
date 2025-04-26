@@ -24,7 +24,10 @@ size_t	ft_puthex_u(unsigned long n)
 		count += ft_puthex_u(n / 16);
 	c = hex[n % 16];
 	if (count == 0)
+	{
 		write(1, "0x", 2);
+		count += 2;
+	}
 	write(1, &c, 1);
 	count++;
 	return (count);

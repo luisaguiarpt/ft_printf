@@ -13,12 +13,15 @@ int	main(void)
 	printf("-----ft-----\n");
 	ft_printf("%i\n", 1);
 	printf("----------\n");
-	printf("%s\n", (char *)0);
 	printf("----------\n");
 
+	int	res1;
+	int	res2;
 	printf("-----ori-----\n");
-	printf("%p\n", -1);
+	res1 = printf("%p\n", (void *)-1);
+	printf("%i\n", res1);
 	printf("-----ft-----\n");
-	ft_printf("%p\n", -1);
+	res2 = ft_printf("%p\n", (void *)-1);
+	printf("%i\n", res2);
 	printf("----------\n");
 }
