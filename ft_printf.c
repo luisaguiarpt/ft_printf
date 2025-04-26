@@ -57,7 +57,7 @@ size_t	get_function(char c, va_list args)
 	else if (c == 'X')
 		return (ft_puthex(va_arg(args, int), 1));
 	else if (c == 'p')
-		return (ft_puthex_u(va_arg(args, long)));
+		return (ft_puthex_u(va_arg(args, unsigned long)));
 	else if (c == '%')
 		return (ft_putchar('%'));
 	return (0);

@@ -24,4 +24,7 @@ int	main(void)
 	res2 = ft_printf("%p\n", (void *)-1);
 	printf("%i\n", res2);
 	printf("----------\n");
+	printf("Size of int *: %zu bytes\n", sizeof(int *));
+    printf("Size of char *: %zu bytes\n", sizeof(char *));
+    printf("Size of void *: %zu bytes\n", sizeof(void *));
 }
