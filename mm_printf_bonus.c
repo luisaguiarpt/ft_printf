@@ -6,7 +6,7 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 21:04:03 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:57:10 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 
-size_t	get_function(char c, va_list args, t_format format);
-int	is_flag(char c);
-int	check_flags(char c, t_format *format);
-void	init_flags(t_flags *format);
+size_t	get_function(char c, va_list args);
 
 int	ft_printf(const char *str, ...)
 {
-	size_t		count;
-	va_list		args;
-	int			i;
-	t_format	format;
+	size_t	count;
+	va_list	args;
+	int		i;
+	t_flags	flags;
 
 	i = 0;
 	count = 0;
@@ -38,74 +35,48 @@ int	ft_printf(const char *str, ...)
 		}
 		else if (str[i++] == '%')
 		{
-			init_flags(format);
-			i += parse_str(&str[i], format);
-			if (format->error > 0)
-				return (-1);
-			count += get_function(format->type, args, format);
+			parse_str(&str[i]);
+			count += get_function(str[i++], args);
 		}
 	}
 	va_end(args);
 	return (count);
 }
 
-void	parse_str(char	*str, t_format *format)
+int	is_flag(char c, t_format *format)
+{
+	char *valid;
+
+	valid = ".0-";
+	while (format->flags[i])
+	{
+		if (c == format->flags[i]);
+		{
+			format->flags == ;
+			return (1);
+		}
+		++i;
+	}
+}
+
+void	parse_str(char	*str, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
-	while (is_flag(str[i]) && str[i])
-		get_flags(str[i++], t_format format);
-	if (is_min(str[i]) && str[i])
-		i += get_min(str[i]);
-	if (is_max(str[i]) && str[i])
-		i += get_max(str[i]);
-	if (is_type(str[i]) && str[i])
-		get_type(str[i]);
-	check_error(format);
-	return (i);
-}
-
-int	get_flags(char c, t_format *format)
-{
-	if (c == '0')
-		format->zero += 1;
-	if (c == '#')
-		format->hash += 1;
-	if (c == '+')
-		format->plus += 1;
-	if (c == '-')
-		format->minus += 1;
-	if (c == ' ')
-		format->blank += 1;
-}
-
-void	check_error(t_format format)
-{
-	if (format->zero > 1 || format->hash > 1 || format->plus > 1)
-		format->error = 1;
-	if (format->minus > 1 || format->blank > 1)
-		format->error = 1;
-}
-
-int	is_flag(char c)
-{
-	if (c == '0' || c == '#' || c == '+' || c == '-' || c == ' ')
-		return (1);
-	return (0);
+	while (is_flag(str[++i]))
+	{
+		if (is_valid_type(str[i])
+	}
 }
 
 void	init_flags(t_flags *format)
 {
-	format->zero = 0;
-	format->hash= 0;
-	format->plus= 0;
-	format->minus= 0;
-	format->blank= 0;
+	format->valids = "0-+# "
+	format->flags = "^^^^^";
 	format->min = 0;
 	format->max = 0;
 	format->type = '\0';
-	format->error = 0;
 }
 
 size_t	get_function(char c, va_list args)

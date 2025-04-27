@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:28:43 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 20:46:33 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:09:27 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 
 # include <unistd.h>
 
-typedef struct	s_flags
+typedef struct	s_format
 {
-	int		zero;
-	int		hash;
-	int		minus;
-	int		plus;
-	int		blank;
-	int		precision;
+	char	flags[5];
 	int		min;
+	int		max;
 	char	type;
-}				t_flags;
+}				t_format;
 
 int	ft_printf(const char *str, ...);
 size_t	ft_putchar(char c);
@@ -33,6 +29,6 @@ size_t	ft_putstr(char *s);
 size_t	ft_putnbr_u(unsigned int n);
 size_t	ft_putnbr(int n);
 size_t	ft_puthex(unsigned int n, int up);
-size_t	ft_puthex_u(unsigned long n);
+size_t	ft_putptr(unsigned long int n);
 
 #endif

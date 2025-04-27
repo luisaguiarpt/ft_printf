@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_u.c                                      :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 20:49:51 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:59:13 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "../includes/ft_printf.h"
 
-size_t	ft_puthex_u(unsigned long n)
+size_t	ft_putptr(unsigned long int n)
 {
 	unsigned char	c;
 	const char		*hex;
@@ -20,8 +21,10 @@ size_t	ft_puthex_u(unsigned long n)
 
 	count = 0;
 	hex = "0123456789abcdef";
+	if (n == 0)
+		return (ft_putstr("(nil)"));
 	if (n > 15)
-		count += ft_puthex_u(n / 16);
+		count += ft_putptr(n / 16);
 	c = hex[n % 16];
 	if (count == 0)
 	{
@@ -38,26 +41,48 @@ size_t	ft_puthex_u(unsigned long n)
 int	main(void)
 {
 	unsigned int	n = 0;
-	n = ft_puthex(0);
+	unsigned int	m = 0;
+
+	n = ft_putptr(0);
 	printf("|%u\n", n);
-	printf("|%x\n", 0);
-	n = ft_puthex(5);
+	m = printf("%p", (void *)0);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(5);
 	printf("|%u\n", n);
-	printf("|%x\n", 5);
-	n = ft_puthex(42);
+	m = printf("%p", (void *)5);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(42);
 	printf("|%u\n", n);
-	printf("|%x\n", 42);
-	n = ft_puthex(101230);
+	m = printf("%p", (void *)42);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(101230);
 	printf("|%u\n", n);
-	printf("|%x\n", 101230);
-	n = ft_puthex(-123094);
+	m = printf("%p", (void *)101230);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(-123094);
 	printf("|%u\n", n);
-	printf("|%x\n", -123094);
-	n = ft_puthex(-2147483647);
+	m = printf("%p", (void *)-123094);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(-2147483647);
 	printf("|%u\n", n);
-	printf("|%x\n", -2147483647);
-	n = ft_puthex(2147483647);
+	m = printf("%p", (void *)-2147483647);
+	printf("|%u\n-------------\n", m);
+	m = 0;
+
+	n = ft_putptr(2147483647);
 	printf("|%u\n", n);
-	printf("|%x\n", 2147483647);
+	m = printf("%p", (void *)2147483647);
+	printf("|%u\n-------------\n", m);
+	m = 0;
 }
 */

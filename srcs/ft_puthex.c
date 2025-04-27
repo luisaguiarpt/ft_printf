@@ -6,11 +6,11 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 20:40:59 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:03:09 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../includes/ft_printf.h"
 
 size_t	ft_puthex(unsigned int n, int up)
 {

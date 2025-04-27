@@ -6,12 +6,12 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 20:46:56 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:58:54 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 #include <stdarg.h>
 
 size_t	get_function(char c, va_list args);
@@ -57,7 +57,7 @@ size_t	get_function(char c, va_list args)
 	else if (c == 'X')
 		return (ft_puthex(va_arg(args, int), 1));
 	else if (c == 'p')
-		return (ft_puthex_u(va_arg(args, unsigned long)));
+		return (ft_putptr(va_arg(args, unsigned long int)));
 	else if (c == '%')
 		return (ft_putchar('%'));
 	return (0);

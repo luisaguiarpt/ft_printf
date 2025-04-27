@@ -6,11 +6,11 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/26 19:45:50 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:05:29 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/ft_printf.h"
 
 size_t	ft_putnbr_u(unsigned int n)
 {
