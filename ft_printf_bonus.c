@@ -6,7 +6,7 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 21:04:03 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:07:33 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] != '%')
-		{
-			count++;
-			write(1, &str[i], 1);
-		}
+			count += write(1, &str[i], 1);
 		else if (str[i++] == '%')
 		{
 			init_flags(format);
@@ -86,13 +83,6 @@ void	check_error(t_format format)
 		format->error = 1;
 	if (format->minus > 1 || format->blank > 1)
 		format->error = 1;
-}
-
-int	is_flag(char c)
-{
-	if (c == '0' || c == '#' || c == '+' || c == '-' || c == ' ')
-		return (1);
-	return (0);
 }
 
 void	init_flags(t_flags *format)

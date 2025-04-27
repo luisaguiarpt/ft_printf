@@ -6,7 +6,7 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:28:43 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 20:12:35 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:06:56 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_format
 	int		min;
 	int		max;
 	char	type;
+	int		error;
 }				t_format;
 
 int	ft_printf(const char *str, ...);
