@@ -6,11 +6,12 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 21:07:19 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 21:13:44 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:18:09 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+#include "../ft_printf.h"
 
 int	is_flag(char c)
 {
@@ -19,7 +20,58 @@ int	is_flag(char c)
 	return (0);
 }
 
-int	get_min(str[i])
+int	is_max(char *str)
 {
+	if (str[i] == '.')
+		i++;
+	else
+		return (0);
+	if (is_digit(str[i]))
+		return (1);
+}
 
+int	is_type(char c)
+{
+	if (c == 'i' || c == 'd' || c == 'u' || c == 'p')
+		return (1);
+	if (c == 'x' || c == 'X' || c == 'c' || c == 's')
+		return (1);
+	return (0);
+}
+
+int	get_type(char c, t_format format)
+{
+	if (c == 'i')
+		format->type = 'i';
+	if (c == 'd')
+		format->type = 'd';
+	if (c == 'u')
+		format->type = 'u';
+	if (c == 'x')
+		format->type = 'x';
+	if (c == 'X')
+		format->type = 'X';
+	if (c == 'p')
+		format->type = 'p';
+	if (c == 'c')
+		format->type = 'c';
+	if (c == 's')
+		format->type = 's';
+}
+
+int	get_nbr(char *str, t_format format, char min_max)
+{
+	int	nbr;
+
+	nbr = 0;
+	while (is_digit(str[i]))
+	{
+		nbr = (nbr * 10) + str[i] - '0';
+		i++;
+	}
+	if (min_max == 'n')
+		format->min = nbr;
+	if (min_max == 'x')
+		format->max = nbr;
+	return (i);
 }

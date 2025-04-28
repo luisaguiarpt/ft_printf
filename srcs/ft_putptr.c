@@ -6,7 +6,7 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 19:59:13 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:38:22 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ int	main(void)
 	unsigned int	n = 0;
 	unsigned int	m = 0;
 
+	int	a = 1;
+	int	*ptr1 = &a;
+	n = ft_putptr((unsigned long int)ptr1);
+	printf("|%u\n", n);
+	m = printf("%p", ptr1);
+	printf("|%u\n-------------\n", m);
+
+	char	*ptr2 = "ola";
+	n = ft_putptr((unsigned long int)ptr2);
+	printf("|%u\n", n);
+	m = printf("%p", ptr2);
+	printf("|%u\n-------------\n", m);
+	
 	n = ft_putptr(0);
 	printf("|%u\n", n);
 	m = printf("%p", (void *)0);
