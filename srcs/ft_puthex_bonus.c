@@ -6,13 +6,13 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/29 14:21:18 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:02:07 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-size_t	ft_puthex(unsigned int n, int up)
+size_t	ft_puthex(unsigned int n, int up, t_format format)
 {
 	unsigned char	c;
 	const char		*hex;
@@ -26,7 +26,7 @@ size_t	ft_puthex(unsigned int n, int up)
 	if (n > 15)
 		count += ft_puthex(n / 16, up);
 	c = hex[n % 16];
-	if (count == 0)
+	if (count == 0 && format->hash = 1)
 	{
 		write(1, "0x", 2);
 		count += 2;

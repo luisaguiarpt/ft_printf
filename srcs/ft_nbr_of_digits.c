@@ -1,0 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_nbr_of_digits.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/29 18:31:36 by ldias-da          #+#    #+#             */
+/*   Updated: 2025/04/29 20:57:34 by ldias-da         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/ft_printf.h"
+
+size_t	nbr_dig(int n)
+{
+	size_t	digits;
+
+	digits = 0;
+	if (n < 0)
+		digits += 1;
+	if (n == 0)
+		digits += 1;
+	while (n > 0)
+	{
+		digits++;
+		n /= 10;
+	}
+	return (digits);
+}

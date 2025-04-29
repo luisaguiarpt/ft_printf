@@ -3,17 +3,17 @@
 
 int	main(void)
 {
-//	printf("-----ori-----\n");
-//	printf("%c\n", 'a');
-//	printf("-----ft-----\n");
-//	ft_printf("%c\n", 'a');
-//	printf("----------\n");
-//	printf("-----ori-----\n");
-//	printf("%i\n", 1);
-//	printf("-----ft-----\n");
-//	ft_printf("%i\n", 1);
-//	printf("----------\n");
-//	printf("----------\n");
+	printf("-----ori-----\n");
+	printf("%c\n", 'a');
+	printf("-----ft-----\n");
+	ft_printf("%c\n", 'a');
+	printf("----------\n");
+	printf("-----ori-----\n");
+	printf("%c\n", 'a');
+	printf("-----ft-----\n");
+	ft_printf("%c\n", 'a');
+	printf("----------\n");
+	printf("----------\n");
 //
 //	int	res1;
 //	int	res2;

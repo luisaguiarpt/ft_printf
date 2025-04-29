@@ -1,0 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putchar_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 14:04:30 by ldias-da          #+#    #+#             */
+/*   Updated: 2025/04/29 14:36:09 by ldias-da         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/ft_printf_bonus.h"
+
+size_t	ft_putchar(char c, t_format format)
+{
+	int	i;
+
+	i = 0;
+	if (format->minus)
+		write(1, &c, 1);
+	while (i < format->min - 1)
+		write(1, " ", 1);
+	if (!format->minus)
+		write(1, &c, 1);
+	return (1);
+}
