@@ -11,16 +11,22 @@
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include "../libft/libft.h"
 
 size_t	nbr_dig(int n)
 {
 	size_t	digits;
 
 	digits = 0;
-	if (n < 0)
-		digits += 1;
+	if (n == INT_MIN)
+		return (11);
 	if (n == 0)
 		digits += 1;
+	if (n < 0)
+	{
+		digits += 1;
+		n *= -1;
+	}
 	while (n > 0)
 	{
 		digits++;
