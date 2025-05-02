@@ -40,5 +40,7 @@ int	is_type(char c)
 		return (1);
 	if (c == 'x' || c == 'X' || c == 'c' || c == 's')
 		return (1);
+	if (c == '%')
+		return (1);
 	return (0);
 }

@@ -59,7 +59,6 @@ size_t	hex_nbr_dig(unsigned int n)
 	}
 	return (digits);
 }
-
 //size_t	nbr_dig(int n)
 //{
 //	size_t	digits;
@@ -81,4 +80,3 @@ size_t	hex_nbr_dig(unsigned int n)
 //	}
 //	return (digits);
 //}
-

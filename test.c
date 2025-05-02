@@ -163,9 +163,12 @@ int	main(void)
 	ft_printf("ft_||%x||\n", INT_MIN);
 	printf("-----end hex tests-----\n");
 
-
-//	printf("------------------\n");
-//	printf("%u \n", -1);
-//	printf("%u \n", -13);
-//	printf("%u \n", -2147483647);
+//	Extra test
+	printf("-----== Print %% ==------\n");
+	printf("ORI:||%%||\n");
+	ft_printf("FT_:||%%||\n");
+	printf("-----------\n");
+//	printf("ORI:||%5%||\n");
+	ft_printf("FT_:||%5%||\n");
+	
 }
