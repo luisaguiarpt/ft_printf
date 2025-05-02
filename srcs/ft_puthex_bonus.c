@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf_bonus.h"
 
-size_t	ft_puthex(unsigned int n, int up, t_format *format)
+size_t	puthex_format(unsigned int n, int up, t_format *format)
 {
 	unsigned char	c;
 	const char		*hex;
@@ -24,7 +24,7 @@ size_t	ft_puthex(unsigned int n, int up, t_format *format)
 	else
 		hex = "0123456789abcdef";
 	if (n > 15)
-		count += ft_puthex(n / 16, up, format);
+		count += puthex_format(n / 16, up, format);
 	c = hex[n % 16];
 	if (count == 0 && format->hash == 1)
 	{

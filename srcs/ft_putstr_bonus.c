@@ -13,16 +13,16 @@
 #include "../includes/ft_printf_bonus.h"
 #include "../libft/libft.h"
 
-size_t	ft_putstr_null(t_format *format);
+static size_t	putstr_null(t_format *format);
 
-size_t	ft_putstr(char *s, t_format *format)
+size_t	putstr_format(char *s, t_format *format)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	if (!s)
-		return (ft_putstr_null(format));
+		return (putstr_null(format));
 	if (!format->minus && format->min > format->max)
 		while (i < format->min - format->max)
 		{
@@ -41,7 +41,7 @@ size_t	ft_putstr(char *s, t_format *format)
 	return (i);
 }
 
-size_t	ft_putstr_null(t_format *format)
+static size_t	putstr_null(t_format *format)
 {
 	size_t	i;
 	size_t	j;

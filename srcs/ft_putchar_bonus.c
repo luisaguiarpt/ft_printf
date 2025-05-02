@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf_bonus.h"
 
-size_t	ft_putchar(char c, t_format *format)
+size_t	putchar_format(char c, t_format *format)
 {
 	size_t	i;
 

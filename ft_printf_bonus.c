@@ -90,7 +90,7 @@ int	init_flags(t_format **f_ptr)
 {
 	t_format	*format;
 
-	format = malloc(sizeof(t_format *));
+	format = malloc(sizeof(t_format));
 	if (!format)
 		return (0);
 	if (*f_ptr != NULL)
@@ -111,21 +111,21 @@ int	init_flags(t_format **f_ptr)
 size_t	get_function(t_format *format, char c, va_list args)
 {
 	if (c == 'c')
-		return (ft_putchar(va_arg(args, int), format));
+		return (putchar_format(va_arg(args, int), format));
 	else if (c == 's')
-		return (ft_putstr(va_arg(args, char *), format));
+		return (putstr_format(va_arg(args, char *), format));
 	else if (c == 'i' || c == 'd')
 		return (putnbr_format(va_arg(args, int), format));
 	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(args, unsigned int), format));
+		return (putnbr_u_format(va_arg(args, unsigned int), format));
 	else if (c == 'x')
-		return (ft_puthex(va_arg(args, int), 0, format));
+		return (puthex_format(va_arg(args, int), 0, format));
 	else if (c == 'X')
-		return (ft_puthex(va_arg(args, int), 1, format));
+		return (puthex_format(va_arg(args, int), 1, format));
 	else if (c == 'p')
-		return (ft_putptr_pad(va_arg(args, unsigned long), format));
+		return (putptr_pad(va_arg(args, unsigned long), format));
 	else if (c == '%')
-		return (ft_putchar('%', format));
+		return (putchar_format('%', format));
 	return (0);
 }
 /*

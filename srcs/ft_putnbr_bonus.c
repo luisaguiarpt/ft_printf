@@ -14,7 +14,8 @@
 #include "../libft/libft.h"
 
 static size_t	put_spaces(int n, t_format *format);
-static size_t	put_zeroes(int n, t_format *format);
+static size_t	put_zeros(int n, t_format *format, int put);
+static size_t	put_sign(int n, t_format *format);
 static size_t	put_nbr(int n);
 
 size_t	putnbr_format(int n, t_format *format)
@@ -24,62 +25,79 @@ size_t	putnbr_format(int n, t_format *format)
 	count = 0;
 	if (!format->minus)
 		count += put_spaces(n, format);
-	if (n < 0)
-	{
-		write(1, "-", 1);
-		count++;
-	}
-	if (format->plus && n > 0)
-	{
-		write(1, "+", 1);
-		count++;
-	}
-	count += put_zeroes(n, format);
+	count += put_sign(n, format);
+	count += put_zeros(n, format, 1);
 	count += put_nbr(n * ((n < 0) * -1 + 1 * (n > 0)));
 	if (format->minus)
 		count += put_spaces(n, format);
 	return (count);
 }
 
-static size_t	put_zeroes(int n, t_format *format)
+static size_t	put_sign(int n, t_format *format)
 {
-	size_t	zeroes;
+	if (format->plus && n > 0)
+	{
+		write(1, "+", 1);
+		return (1);
+	}
+	else if (format->blank && n > 0)
+	{
+		write(1, " ", 1);
+		return (1);
+	}
+	else if (n < 0)
+	{
+		write(1, "-", 1);
+		return (1);
+	}
+	return (0);
+}
+
+static size_t	put_zeros(int n, t_format *format, int put)
+{
+	size_t	zeros;
 	size_t	i;
 
-	if (!format->zero)
-		zeroes = format->max - nbr_dig(n) + (n < 0);
+	i = 0;
+	if (abs_nbr_dig(n) > format->max)
+		zeros = 0;
 	else
-		zeroes = format->min - nbr_dig(n);
-	if (format->plus && n > 0)
-		zeroes -= 1;
-	if (!format->zero && nbr_dig(n) > format->max)
-		return (0);
-	while (zeroes--)
+		zeros = format->max - abs_nbr_dig(n);
+	while (i < zeros && put)
 	{
 		write(1, "0", 1);
 		i++;
 	}
-	return (i);
+	return (zeros);
 }
 
 static size_t	put_spaces(int n, t_format *format)
 {
-	size_t	min;
-	size_t	max;
+	size_t	spaces;
+	size_t	zeros;
 	size_t	i;
 
-	min = format->min;
-	max = format->max;
+	spaces = 0;
+	zeros = put_zeros(n, format, 0);
 	i = 0;
-	if (format->zero)
-		return (0);
-	if (min > nbr_dig(n) && min > max && )
-		while (i < min - max - (n < 0))
-		{
-			write(1, " ", 1);
-			i++;
-		}
-	return (i);
+	if (abs_nbr_dig(n) > format->min)
+		return (spaces);
+	if (abs_nbr_dig(n) < format->min)
+	{
+		spaces = format->min - abs_nbr_dig(n);
+		if (((format->plus || format->blank) && n > 0) || n < 0)
+			spaces -= 1;
+	}
+	if (spaces >= zeros)
+		spaces -= zeros;
+	else
+			spaces = 0;
+	while (i < spaces)
+	{
+		write(1, " ", 1);
+		i++;
+	}
+	return (spaces);
 }
 
 static size_t	put_nbr(int n)
@@ -90,14 +108,8 @@ static size_t	put_nbr(int n)
 	count = 0;
 	if (n == INT_MIN)
 	{
-		write(1, "-2147483648", 11);
-		return (11);
-	}
-	if (n < 0)
-	{
-		n = -n;
-		count++;
-		write(1, "-", 1);
+		write(1, "2147483648", 11);
+		return (10);
 	}
 	if (n > 9)
 		count += put_nbr(n / 10);

@@ -47,12 +47,14 @@ int		is_flag(char c);
 int		is_max(const char *str);
 int		is_type(char c);
 // Print utils
-size_t	ft_putchar(char c, t_format *format);
-size_t	ft_putstr(char *s, t_format *format);
-size_t	ft_putnbr_u(unsigned int n, t_format *format);
+size_t	putchar_format(char c, t_format *format);
+size_t	putstr_format(char *s, t_format *format);
+size_t	putnbr_u_format(unsigned int n, t_format *format);
 size_t	putnbr_format(int n, t_format *format);
-size_t	ft_puthex(unsigned int n, int up, t_format *format);
-size_t	ft_putptr_pad(unsigned long int n, t_format *format);
+size_t	puthex_format(unsigned int n, int up, t_format *format);
+size_t	putptr_pad(unsigned long int n, t_format *format);
 size_t	nbr_dig(int n);
+size_t	abs_nbr_dig(int n);
+size_t	u_nbr_dig(unsigned int n);
 
 #endif
