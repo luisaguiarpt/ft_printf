@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 
-int	ft_printf(const char *str, ...);
+int		ft_printf(const char *str, ...);
 size_t	ft_putchar(char c);
 size_t	ft_putstr(char *s);
 size_t	ft_putnbr_u(unsigned int n);

@@ -1,67 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/27 19:58:54 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:04:50 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "includes/ft_printf.h"
+#include "../libft/libft.h"
+#include "../includes/ft_printf_bonus.h"
 #include <stdarg.h>
-
-size_t	get_function(char c, va_list args);
 
 int	ft_printf(const char *str, ...)
 {
-	size_t	count;
-	va_list	args;
-	int		i;
+	size_t		count;
+	va_list		args;
+	int			i;
+	t_format	*format;
 
+	format = NULL;
 	i = 0;
 	count = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		if (str[i] != '%')
+			count += write(1, &str[i++], 1);
+		else if (str[i++] == '%')
 		{
-			count++;
-			write(1, &str[i++], 1);
-		}
-		else if (str[i] == '%')
-		{
-			i++;
-			count += get_function(str[i++], args);
+			if (!init_flags(&format))
+				return (-1);
+			i += parse_str(&str[i], format);
+			if (format->error > 0)
+				return (-1);
+			count += get_function(format, format->type, args);
 		}
 	}
 	va_end(args);
+	free(format);
 	return (count);
 }
 
-size_t	get_function(char c, va_list args)
-{
-	if (c == 'c')
-		return (ft_putchar(va_arg(args, int)));
-	else if (c == 's')
-		return (ft_putstr(va_arg(args, char *)));
-	else if (c == 'i' || c == 'd')
-		return (ft_putnbr(va_arg(args, int)));
-	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(args, unsigned int)));
-	else if (c == 'x')
-		return (ft_puthex(va_arg(args, int), 0));
-	else if (c == 'X')
-		return (ft_puthex(va_arg(args, int), 1));
-	else if (c == 'p')
-		return (ft_putptr(va_arg(args, unsigned long int)));
-	else if (c == '%')
-		return (ft_putchar('%'));
-	return (0);
-}
 /*
 #include <stdio.h>
 

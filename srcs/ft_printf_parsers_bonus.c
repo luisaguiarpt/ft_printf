@@ -1,46 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus_utils.c                            :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 21:07:19 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/28 13:18:09 by ldias-da         ###   ########.fr       */
+/*   Created: 2025/04/25 21:30:02 by ldias-da          #+#    #+#             */
+/*   Updated: 2025/04/28 15:04:50 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/ft_printf_bonus.h"
 
-int	is_flag(char c)
-{
-	if (c == '0' || c == '#' || c == '+' || c == '-' || c == ' ')
-		return (1);
-	return (0);
-}
-
-int	is_max(const char *str)
+int	parse_str(const char *str, t_format *format)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '.')
-		i++;
-	else
-		return (0);
-	if (ft_isdigit(str[i]))
-		return (1);
-	return (0);
+	while (is_flag(str[i]) && str[i])
+		get_flags(str[i++], format);
+	if (ft_isdigit(str[i]) && str[i])
+		i += get_nbr(&str[i], format, 'n');
+	if (is_max(&str[i]) && str[i])
+	{
+		++i;
+		i += get_nbr(&str[i], format, 'x');
+	}
+	if (is_type(str[i]) && str[i])
+		i += get_type(str[i], format);
+	check_error(format);
+	return (i);
 }
 
-int	is_type(char c)
+void	get_flags(char c, t_format *format)
 {
-	if (c == 'i' || c == 'd' || c == 'u' || c == 'p')
-		return (1);
-	if (c == 'x' || c == 'X' || c == 'c' || c == 's')
-		return (1);
-	return (0);
+	if (c == '0')
+		format->zero += 1;
+	if (c == '#')
+		format->hash += 1;
+	if (c == '+')
+		format->plus += 1;
+	if (c == '-')
+		format->minus += 1;
+	if (c == ' ')
+		format->blank += 1;
 }
 
 int	get_type(char c, t_format *format)

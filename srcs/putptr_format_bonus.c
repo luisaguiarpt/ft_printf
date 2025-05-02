@@ -18,7 +18,7 @@ static size_t	ptrsize(unsigned long int n);
 static size_t	putptr(unsigned long int n);
 static size_t	prt_nil(void);
 
-size_t	putptr_pad(unsigned long int n, t_format *format)
+size_t	putptr_format(unsigned long int n, t_format *format)
 {
 	size_t	i;
 	size_t	count;

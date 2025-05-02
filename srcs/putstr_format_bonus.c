@@ -24,11 +24,13 @@ size_t	putstr_format(char *s, t_format *format)
 	if (!s)
 		return (putstr_null(format));
 	if (!format->minus && format->min > format->max)
+	{
 		while (i < format->min - format->max)
 		{
 			write(1, " ", 1);
 			i++;
 		}
+	}
 	j = 0;
 	while (s[j] && (j < format->max || format->max == 0))
 	{

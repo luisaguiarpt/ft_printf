@@ -23,6 +23,7 @@ int	main(void)
 	printf("||%2c|| \n", c);
 	ft_printf("||%2c|| \n", c);
 	printf("-----end char tests-----\n");
+
 //	Str tests: only works with: -, min, .
 	printf("-----begin str tests-----\n");
 	char	*str = "Hello";
@@ -53,6 +54,7 @@ int	main(void)
 	printf("ori||%4.1s||\n", str);
 	ft_printf("ft_||%4.1s||\n", str);
 	printf("-----end str tests-----\n");
+
 //	Ptr tests: works with: -, min
 	printf("-----begin ptr tests-----\n");
 	printf("ori||%p||\n", (void *)0);
@@ -139,6 +141,27 @@ int	main(void)
 	printf("ori||%10.3u||\n", -121243);
 	ft_printf("ft_||%10.3u||\n", -121243);
 	printf("-----end unsigned tests-----\n");
+
+//	Hex tests: works with: -, min
+	printf("-----begin hex tests-----\n");
+	printf("ori||%x||\n", 0);
+	ft_printf("ft_||%x||\n", 0);
+	printf("------------------\n");
+	printf("|ori|%6x||\n", -10);
+	ft_printf("ft_||%6x||\n", -10);
+	printf("------------------\n");
+	printf("ori||%10x||\n", 1234);
+	ft_printf("ft_||%10x||\n", 1234);
+	printf("------------------\n");
+	printf("ori||%-#16.16x||\n", -123456);
+	ft_printf("ft_||%#-16.16x||\n", -123456);
+	printf("------------------\n");
+	printf("ori||%-16x||\n", INT_MAX);
+	ft_printf("ft_||%-16x||\n", INT_MAX);
+	printf("------------------\n");
+	printf("ori||%x||\n", INT_MIN);
+	ft_printf("ft_||%x||\n", INT_MIN);
+	printf("-----end hex tests-----\n");
 
 
 //	printf("------------------\n");
