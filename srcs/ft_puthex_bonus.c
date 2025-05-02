@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
-size_t	ft_puthex(unsigned int n, int up, t_format format)
+size_t	ft_puthex(unsigned int n, int up, t_format *format)
 {
 	unsigned char	c;
 	const char		*hex;
-	unsigned int	count;
+	size_t			count;
 
 	count = 0;
 	if (up)
@@ -24,9 +24,9 @@ size_t	ft_puthex(unsigned int n, int up, t_format format)
 	else
 		hex = "0123456789abcdef";
 	if (n > 15)
-		count += ft_puthex(n / 16, up);
+		count += ft_puthex(n / 16, up, format);
 	c = hex[n % 16];
-	if (count == 0 && format->hash = 1)
+	if (count == 0 && format->hash == 1)
 	{
 		write(1, "0x", 2);
 		count += 2;

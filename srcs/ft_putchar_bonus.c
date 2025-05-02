@@ -12,15 +12,18 @@
 
 #include "../includes/ft_printf_bonus.h"
 
-size_t	ft_putchar(char c, t_format format)
+size_t	ft_putchar(char c, t_format *format)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (format->minus)
 		write(1, &c, 1);
-	while (i < format->min - 1)
+	while (i < format->min - (format->min > 0) * 1)
+	{
 		write(1, " ", 1);
+		i++;
+	}
 	if (!format->minus)
 		write(1, &c, 1);
 	return (1);

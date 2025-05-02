@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include "../ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
 int	is_flag(char c)
 {
@@ -20,14 +20,18 @@ int	is_flag(char c)
 	return (0);
 }
 
-int	is_max(char *str)
+int	is_max(const char *str)
 {
+	int	i;
+
+	i = 0;
 	if (str[i] == '.')
 		i++;
 	else
 		return (0);
-	if (is_digit(str[i]))
+	if (ft_isdigit(str[i]))
 		return (1);
+	return (0);
 }
 
 int	is_type(char c)
@@ -39,7 +43,7 @@ int	is_type(char c)
 	return (0);
 }
 
-int	get_type(char c, t_format format)
+int	get_type(char c, t_format *format)
 {
 	if (c == 'i')
 		format->type = 'i';
@@ -57,14 +61,23 @@ int	get_type(char c, t_format format)
 		format->type = 'c';
 	if (c == 's')
 		format->type = 's';
+	if (c == '%')
+		format->type = '%';
+	if (c == 'i' || c == 'd' || c == 'u' || c == 'x' || c == 'X')
+		return (1);
+	else if (c == 'p' || c == 'c' || c == 's' || c == '%')
+		return (1);
+	return (0);
 }
 
-int	get_nbr(char *str, t_format format, char min_max)
+int	get_nbr(const char *str, t_format *format, char min_max)
 {
 	int	nbr;
+	int	i;
 
 	nbr = 0;
-	while (is_digit(str[i]))
+	i = 0;
+	while (ft_isdigit(str[i]))
 	{
 		nbr = (nbr * 10) + str[i] - '0';
 		i++;

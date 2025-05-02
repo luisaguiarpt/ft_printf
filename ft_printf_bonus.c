@@ -11,59 +11,60 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "ft_printf.h"
+#include "includes/ft_printf_bonus.h"
 #include <stdarg.h>
-
-size_t	get_function(char c, va_list args, t_format format);
-int	is_flag(char c);
-int	check_flags(char c, t_format *format);
-void	init_flags(t_flags *format);
 
 int	ft_printf(const char *str, ...)
 {
 	size_t		count;
 	va_list		args;
 	int			i;
-	t_format	format;
+	t_format	*format;
 
+	format = NULL;
 	i = 0;
 	count = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		if (str[i] != '%')
-			count += write(1, &str[i], 1);
+			count += write(1, &str[i++], 1);
 		else if (str[i++] == '%')
 		{
-			init_flags(format);
+			if (!init_flags(&format))
+				return (-1);
 			i += parse_str(&str[i], format);
 			if (format->error > 0)
 				return (-1);
-			count += get_function(format->type, args, format);
+			count += get_function(format, format->type, args);
 		}
 	}
 	va_end(args);
+	free(format);
 	return (count);
 }
 
-int	parse_str(char	*str, t_format *format)
+int	parse_str(const char *str, t_format *format)
 {
 	int	i;
 
 	i = 0;
 	while (is_flag(str[i]) && str[i])
-		get_flags(str[i++], t_format format);
-	if (is_digit(&str[i]) && str[i])
-		i += get_nbr(str[i]);
-	if (is_max(str[i]) && str[i])
-		i += get_nbr(str[i]);
+		get_flags(str[i++], format);
+	if (ft_isdigit(str[i]) && str[i])
+		i += get_nbr(&str[i], format, 'n');
+	if (is_max(&str[i]) && str[i])
+	{
+		++i;
+		i += get_nbr(&str[i], format, 'x');
+	}
 	if (is_type(str[i]) && str[i])
-		get_type(str[i]);
+		i += get_type(str[i], format);
 	check_error(format);
 	return (i);
 }
 
-int	get_flags(char c, t_format *format)
+void	get_flags(char c, t_format *format)
 {
 	if (c == '0')
 		format->zero += 1;
@@ -77,7 +78,7 @@ int	get_flags(char c, t_format *format)
 		format->blank += 1;
 }
 
-void	check_error(t_format format)
+void	check_error(t_format *format)
 {
 	if (format->zero > 1 || format->hash > 1 || format->plus > 1)
 		format->error = 1;
@@ -85,8 +86,16 @@ void	check_error(t_format format)
 		format->error = 1;
 }
 
-void	init_flags(t_flags *format)
+int	init_flags(t_format **f_ptr)
 {
+	t_format	*format;
+
+	format = malloc(sizeof(t_format *));
+	if (!format)
+		return (0);
+	if (*f_ptr != NULL)
+		free(*f_ptr);
+	*f_ptr = format;
 	format->zero = 0;
 	format->hash = 0;
 	format->plus = 0;
@@ -96,26 +105,27 @@ void	init_flags(t_flags *format)
 	format->max = 0;
 	format->type = '\0';
 	format->error = 0;
+	return (1);
 }
 
-size_t	get_function(t_format format, char c, va_list args)
+size_t	get_function(t_format *format, char c, va_list args)
 {
 	if (c == 'c')
-		return (ft_putchar(va_arg(args, int), t_format format));
+		return (ft_putchar(va_arg(args, int), format));
 	else if (c == 's')
-		return (ft_putstr(va_arg(args, char *), t_format format));
+		return (ft_putstr(va_arg(args, char *), format));
 	else if (c == 'i' || c == 'd')
-		return (ft_putnbr(va_arg(args, int), t_format format));
+		return (putnbr_format(va_arg(args, int), format));
 	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(args, unsigned int), t_format format));
+		return (ft_putnbr_u(va_arg(args, unsigned int), format));
 	else if (c == 'x')
-		return (ft_puthex(va_arg(args, int), 0, t_format format));
+		return (ft_puthex(va_arg(args, int), 0, format));
 	else if (c == 'X')
-		return (ft_puthex(va_arg(args, int), 1, t_format format));
+		return (ft_puthex(va_arg(args, int), 1, format));
 	else if (c == 'p')
-		return (ft_puthex_u(va_arg(args, unsigned long), t_format format));
+		return (ft_putptr_pad(va_arg(args, unsigned long), format));
 	else if (c == '%')
-		return (ft_putchar('%'));
+		return (ft_putchar('%', format));
 	return (0);
 }
 /*

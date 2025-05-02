@@ -52,6 +52,8 @@ static size_t	put_zeroes(int n, t_format *format)
 		zeroes = format->min - nbr_dig(n);
 	if (format->plus && n > 0)
 		zeroes -= 1;
+	if (!format->zero && nbr_dig(n) > format->max)
+		return (0);
 	while (zeroes--)
 	{
 		write(1, "0", 1);
@@ -71,7 +73,7 @@ static size_t	put_spaces(int n, t_format *format)
 	i = 0;
 	if (format->zero)
 		return (0);
-	if (min > nbr_dig(n) || min > max)
+	if (min > nbr_dig(n) && min > max && )
 		while (i < min - max - (n < 0))
 		{
 			write(1, " ", 1);
@@ -104,7 +106,7 @@ static size_t	put_nbr(int n)
 	count++;
 	return (count);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -151,4 +153,4 @@ int	main(void)
 	m = printf("%+09i", 2147);
 	printf("|%i\n", m);
 }
-
+*/

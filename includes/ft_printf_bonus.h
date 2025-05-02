@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <unistd.h>
+# include <stdarg.h>
 
 typedef struct	s_format
 {
@@ -28,15 +29,30 @@ typedef struct	s_format
 	int		error;
 }				t_format;
 
-int	ft_printf(const char *str, ...);
+// Main
+int		ft_printf(const char *str, ...);
+// Main utils
+size_t	get_function(t_format *format, char c, va_list args);
+void	check_error(t_format *format);
+// Struct utils
+int		init_flags(t_format **ptr);
+// Parsers
+void	get_flags(char c, t_format *format); 	
+int		parse_str(const	char *str, t_format *format);
+int		get_type(char c, t_format *format);
+int		get_nbr(const char *str, t_format *format, char min_max);
+// Parser utils
+int		check_flags(char c, t_format *format); 
+int		is_flag(char c);
+int		is_max(const char *str);
+int		is_type(char c);
+// Print utils
 size_t	ft_putchar(char c, t_format *format);
 size_t	ft_putstr(char *s, t_format *format);
 size_t	ft_putnbr_u(unsigned int n, t_format *format);
-size_t	ft_putnbr(int n);
-size_t	ft_puthex(unsigned int n, t_format *format);
-size_t	ft_putptr(unsigned long int n);
-size_t	ft_putptr_pad(unsigned long int n, t_format format);
-size_t	ft_ptrsize(unsigned long int n);
+size_t	putnbr_format(int n, t_format *format);
+size_t	ft_puthex(unsigned int n, int up, t_format *format);
+size_t	ft_putptr_pad(unsigned long int n, t_format *format);
 size_t	nbr_dig(int n);
 
 #endif

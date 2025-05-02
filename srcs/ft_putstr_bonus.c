@@ -63,7 +63,7 @@ size_t	ft_putstr_null(t_format *format)
 			write(1, " ", 1);
 	return (i);
 }
-
+/*
 int	main(void)
 {
 	t_format	*format;
@@ -76,3 +76,4 @@ int	main(void)
 	char	*str = "Hello";
 	ft_putstr(str, format);
 }
+*/

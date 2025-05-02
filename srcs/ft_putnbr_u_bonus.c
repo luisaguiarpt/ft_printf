@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
-size_t	ft_putnbr_u(unsigned int n, t_format format)
+size_t	ft_putnbr_u(unsigned int n, t_format *format)
 {
 	char	c;
 	size_t	count;
@@ -20,7 +20,7 @@ size_t	ft_putnbr_u(unsigned int n, t_format format)
 	count = 0;
 	if (n > 9)
 	{
-		count += ft_putnbr_u(n / 10);
+		count += ft_putnbr_u(n / 10, format);
 	}
 	c = (n % 10) + '0';
 	write(1, &c, 1);
