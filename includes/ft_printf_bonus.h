@@ -24,6 +24,7 @@ typedef struct s_format
 	int		minus;
 	int		blank;
 	size_t	min;
+	int		prec;
 	size_t	max;
 	char	type;
 	int		error;
@@ -42,8 +43,9 @@ int		get_type(char c, t_format *format);
 int		get_nbr(const char *str, t_format *format, char min_max);
 // Parser utils
 int		is_flag(char c);
-int		is_max(const char *str);
+int		is_max(const char *str, t_format *format);
 int		is_type(char c);
+size_t	ft_min_size_t(size_t a, size_t b);
 // Print utils
 size_t	putchar_format(char c, t_format *format);
 size_t	putstr_format(char *s, t_format *format);
@@ -55,6 +57,7 @@ size_t	putptr_format(unsigned long int n, t_format *format);
 size_t	abs_nbr_dig(int n);
 size_t	u_nbr_dig(unsigned int n);
 size_t	hex_nbr_dig(unsigned int n);
-//size_t	nbr_dig(int n);
+size_t	pos_diff_ui(size_t a, size_t b);
+size_t	nbr_dig(int n);
 
 #endif

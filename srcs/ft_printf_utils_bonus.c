@@ -37,6 +37,7 @@ int	init_flags(t_format **f_ptr)
 	format->minus = 0;
 	format->blank = 0;
 	format->min = 0;
+	format->prec = 0;
 	format->max = 0;
 	format->type = '\0';
 	format->error = 0;
@@ -58,6 +59,9 @@ size_t	get_function(t_format *format, char c, va_list args)
 	else if (c == 'p')
 		return (putptr_format(va_arg(args, unsigned long), format));
 	else if (c == '%')
-		return (putchar_format('%', format));
+	{
+		ft_putchar_fd('%', 1);
+		return (1);
+	}
 	return (0);
 }

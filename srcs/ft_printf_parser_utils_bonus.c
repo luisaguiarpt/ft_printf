@@ -13,6 +13,14 @@
 #include "../libft/libft.h"
 #include "../includes/ft_printf_bonus.h"
 
+size_t	ft_min_size_t(size_t a, size_t b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
 int	is_flag(char c)
 {
 	if (c == '0' || c == '#' || c == '+' || c == '-' || c == ' ')
@@ -20,18 +28,18 @@ int	is_flag(char c)
 	return (0);
 }
 
-int	is_max(const char *str)
+int	is_max(const char *str, t_format *format)
 {
 	int	i;
 
 	i = 0;
 	if (str[i] == '.')
-		i++;
+	{
+		format->prec = 1;
+		return (1);
+	}
 	else
 		return (0);
-	if (ft_isdigit(str[i]))
-		return (1);
-	return (0);
 }
 
 int	is_type(char c)

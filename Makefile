@@ -11,7 +11,7 @@ SDIR=srcs
 SRC=putnbr_format_bonus.c putnbr_u_format_bonus.c putchar_format_bonus.c \
 	 putstr_format_bonus.c puthex_format_bonus.c putptr_format_bonus.c \
 	 ft_printf_bonus.c ft_nbrsize_bonus.c ft_printf_parsers_bonus.c \
-	 ft_printf_parser_utils_bonus.c ft_printf_utils_bonus.c
+	 ft_printf_parser_utils_bonus.c ft_printf_utils_bonus.c pos_diff.c
 SRCS=$(addprefix $(SDIR)/, $(SRC))
 
 MOBJS=$(MANDYS:%.c=%.o)

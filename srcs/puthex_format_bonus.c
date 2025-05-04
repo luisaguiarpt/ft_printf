@@ -24,7 +24,8 @@ size_t	puthex_format(unsigned int n, t_format *format)
 	count = 0;
 	if (!format->minus)
 		count += put_spaces(n, format);
-	count += put_hash(format);
+	if (!format->hash)
+		count += put_hash(format);
 	count += put_zeros(n, format, 1);
 	count += puthex(n, format);
 	if (format->minus)
@@ -39,6 +40,8 @@ static size_t	puthex(unsigned int n, t_format *format)
 	size_t			count;
 
 	count = 0;
+	if (format->prec && !format->max && n == 0)
+		return (0);
 	if (format->type == 'x')
 		hex = "0123456789abcdef";
 	else
@@ -77,12 +80,15 @@ static size_t	put_spaces(unsigned int n, t_format *format)
 	i = 0;
 	if (hex_nbr_dig(n) > format->min)
 		return (spaces);
-	if (hex_nbr_dig(n) < format->min)
+	if (hex_nbr_dig(n) < format->min && format->min > format->max)
+	{
 		spaces = format->min - hex_nbr_dig(n);
-	if (spaces >= zeros)
-		spaces -= zeros;
-	else
-		spaces = 0;
+		if (format->plus || format->blank)
+			spaces -= 1;
+	}
+	spaces = spaces - (zeros * (spaces >= zeros));
+	if (format->prec && !format->max && n == 0)
+		spaces += 1;
 	while (i < spaces)
 	{
 		write(1, " ", 1);
@@ -97,10 +103,14 @@ static size_t	put_zeros(unsigned int n, t_format *format, int put)
 	size_t	i;
 
 	i = 0;
-	if (hex_nbr_dig(n) > format->max)
-		zeros = 0;
+	if (format->zero && format->min && !format->prec)
+		zeros = pos_diff_ui(format->min, hex_nbr_dig(n));
+	else if (!format->min && format->prec)
+		zeros = pos_diff_ui(format->max, hex_nbr_dig(n));
+	else if (format->min && format->prec)
+		zeros = pos_diff_ui(format->max, hex_nbr_dig(n));
 	else
-		zeros = format->max - hex_nbr_dig(n);
+		zeros = 0;
 	while (i < zeros && put)
 	{
 		write(1, "0", 1);

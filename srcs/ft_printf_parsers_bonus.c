@@ -22,7 +22,7 @@ int	parse_str(const char *str, t_format *format)
 		get_flags(str[i++], format);
 	if (ft_isdigit(str[i]) && str[i])
 		i += get_nbr(&str[i], format, 'n');
-	if (is_max(&str[i]) && str[i])
+	if (is_max(&str[i], format) && str[i])
 	{
 		++i;
 		i += get_nbr(&str[i], format, 'x');

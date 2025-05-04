@@ -15,7 +15,8 @@
 
 static size_t	put_spaces(unsigned int n, t_format *format);
 static size_t	put_zeros(unsigned int n, t_format *format, int put);
-static size_t	put_nbr_u(unsigned int n);
+static size_t	put_nbr_u(unsigned int n, t_format *format);
+static size_t	put_sign(t_format *format);
 
 size_t	putnbr_u_format(unsigned int n, t_format *format)
 {
@@ -24,11 +25,28 @@ size_t	putnbr_u_format(unsigned int n, t_format *format)
 	count = 0;
 	if (!format->minus)
 		count += put_spaces(n, format);
+	if (!format->zero)
+		count += put_sign(format);
 	count += put_zeros(n, format, 1);
-	count += put_nbr_u(n);
+	count += put_nbr_u(n, format);
 	if (format->minus)
 		count += put_spaces(n, format);
 	return (count);
+}
+
+static size_t	put_sign(t_format *format)
+{
+	if (format->plus)
+	{
+		write(1, "+", 1);
+		return (1);
+	}
+	else if (format->blank)
+	{
+		write(1, " ", 1);
+		return (1);
+	}
+	return (0);
 }
 
 static size_t	put_zeros(unsigned int n, t_format *format, int put)
@@ -37,10 +55,14 @@ static size_t	put_zeros(unsigned int n, t_format *format, int put)
 	size_t	i;
 
 	i = 0;
-	if (abs_nbr_dig(n) > format->max)
-		zeros = 0;
+	if (format->zero && format->min && !format->prec)
+		zeros = pos_diff_ui(format->min, u_nbr_dig(n));
+	else if (!format->min && format->prec)
+		zeros = pos_diff_ui(format->max, u_nbr_dig(n));
+	else if (format->min && format->prec)
+		zeros = pos_diff_ui(format->max, u_nbr_dig(n));
 	else
-		zeros = format->max - u_nbr_dig(n);
+		zeros = 0;
 	while (i < zeros && put)
 	{
 		write(1, "0", 1);
@@ -58,14 +80,17 @@ static size_t	put_spaces(unsigned int n, t_format *format)
 	spaces = 0;
 	zeros = put_zeros(n, format, 0);
 	i = 0;
-	if (abs_nbr_dig(n) > format->min)
+	if (u_nbr_dig(n) > format->min || zeros < spaces)
 		return (spaces);
-	if (abs_nbr_dig(n) < format->min)
+	if (u_nbr_dig(n) < format->min && format->min > format->max)
+	{
 		spaces = format->min - u_nbr_dig(n);
-	if (spaces >= zeros)
-		spaces -= zeros;
-	else
-		spaces = 0;
+		if (format->plus || format->blank)
+			spaces -= 1;
+	}
+	spaces = spaces - (zeros * (spaces >= zeros));
+	if (format->prec && !format->max && n == 0)
+		spaces += 1;
 	while (i < spaces)
 	{
 		write(1, " ", 1);
@@ -74,14 +99,16 @@ static size_t	put_spaces(unsigned int n, t_format *format)
 	return (spaces);
 }
 
-static size_t	put_nbr_u(unsigned int n)
+static size_t	put_nbr_u(unsigned int n, t_format *format)
 {
 	char	c;
 	size_t	count;
 
 	count = 0;
+	if (format->prec && !format->max && n == 0)
+		return (0);
 	if (n > 9)
-		count += put_nbr_u(n / 10);
+		count += put_nbr_u(n / 10, format);
 	c = (n % 10) + '0';
 	write(1, &c, 1);
 	count++;
