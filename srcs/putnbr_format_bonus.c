@@ -36,12 +36,12 @@ size_t	putnbr_format(int n, t_format *format)
 
 static size_t	put_sign(int n, t_format *format)
 {
-	if (format->plus && n > 0)
+	if (format->plus && n >= 0)
 	{
 		write(1, "+", 1);
 		return (1);
 	}
-	else if (format->blank && n > 0)
+	else if (format->blank && n >= 0)
 	{
 		write(1, " ", 1);
 		return (1);
@@ -63,7 +63,7 @@ static size_t	put_zeros(int n, t_format *format, int put)
 	if (format->zero && format->min && !format->prec)
 		zeros = pos_diff_ui(format->min, nbr_dig(n));
 	else if (!format->min && format->prec)
-		zeros = pos_diff_ui(format->max, abs_nbr_dig(n)); 
+		zeros = pos_diff_ui(format->max, abs_nbr_dig(n));
 	else if (format->min && format->prec)
 		zeros = pos_diff_ui(format->max, abs_nbr_dig(n));
 	else

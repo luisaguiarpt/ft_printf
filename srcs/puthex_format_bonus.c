@@ -15,7 +15,7 @@
 static size_t	puthex(unsigned int n, t_format *format);
 static size_t	put_zeros(unsigned int n, t_format *format, int put);
 static size_t	put_spaces(unsigned int n, t_format *format);
-static size_t	put_hash(t_format *format);
+static size_t	put_hash(unsigned int n, t_format *format);
 
 size_t	puthex_format(unsigned int n, t_format *format)
 {
@@ -24,8 +24,8 @@ size_t	puthex_format(unsigned int n, t_format *format)
 	count = 0;
 	if (!format->minus)
 		count += put_spaces(n, format);
-	if (!format->hash)
-		count += put_hash(format);
+	if (format->hash)
+		count += put_hash(n, format);
 	count += put_zeros(n, format, 1);
 	count += puthex(n, format);
 	if (format->minus)
@@ -54,14 +54,16 @@ static size_t	puthex(unsigned int n, t_format *format)
 	return (count);
 }
 
-static size_t	put_hash(t_format *format)
+static size_t	put_hash(unsigned int n, t_format *format)
 {
+	if (format->hash && n == 0)
+		return (0);
 	if (format->hash && format->type == 'x')
 	{
 		write(1, "0x", 2);
 		return (2);
 	}
-	else if (format->hash && format->type == 'X')
+	if (format->hash && format->type == 'X')
 	{
 		write(1, "0X", 2);
 		return (2);

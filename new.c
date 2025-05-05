@@ -41,12 +41,43 @@ int	main(void)
 	printf("ORI:||%i||\n", INT_MAX);
 	ft_printf("FT_:||%i||\n", INT_MAX);
 	printf("-----------\n");
+	// Hex	
+	printf("-----== Print char with flags ==------\n");
+	int a = printf("ORI:||%#x||\n", 0);
+	printf("%d\n", a);
+	int b = ft_printf("FT_:||%#x||\n", 0);
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||%#x||\n", LONG_MIN);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%#x||\n", LONG_MIN);
+	printf("%d\n", b);
+	printf("-----------\n");
+	// Integers
+	printf("-----== Print int with flags ==------\n");
+	a = printf("ORI:||t1 % d||\n", 0);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||t1 % d||\n", 0);
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||% i||\n", LONG_MIN);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||% i||\n", LONG_MIN);
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||%+i||\n", 0);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%+i||\n", 0);
+	printf("%d\n", b);
+	printf("-----------\n");
 	//	Character
 	printf("-----== Print char with flags ==------\n");
-	printf("ORI:||%.c||\n", 'a');
-	ft_printf("FT_:||%.c||\n", 'a');
+	a = printf("ORI:||%-2c||\n", '0');
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%-2c||\n", '0');
+	printf("%d\n", b);
 	printf("-----------\n");
-	printf("ORI:||%--172c||\n", 108);
-	ft_printf("FT_:||%--172c||\n", 108);
+	printf("ORI:||%#-3c||\n", '0' - 256);
+	ft_printf("FT_:||%#-3c||\n", '0' - 256);
 	printf("-----------\n");
 }

@@ -34,8 +34,6 @@ int	ft_printf(const char *str, ...)
 			if (!init_flags(&format))
 				return (-1);
 			i += parse_str(&str[i], format);
-			if (format->error > 0)
-				return (-1);
 			count += get_function(format, format->type, args);
 		}
 	}

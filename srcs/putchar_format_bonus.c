@@ -26,5 +26,5 @@ size_t	putchar_format(char c, t_format *format)
 	}
 	if (!format->minus)
 		write(1, &c, 1);
-	return (1);
+	return (1 + i);
 }
