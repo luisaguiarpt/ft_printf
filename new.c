@@ -80,4 +80,26 @@ int	main(void)
 	printf("ORI:||%#-3c||\n", '0' - 256);
 	ft_printf("FT_:||%#-3c||\n", '0' - 256);
 	printf("-----------\n");
+	//	Extra	
+	printf("-----== Print with flags ==------\n");
+	a = printf("ORI:||%5%||\n");
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%5%||\n");
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||%-5%||\n");
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%-5%||\n");
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||%p||\n", NULL);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%p||\n", NULL);
+	printf("%d\n", b);
+	printf("-----------\n");
+	a = printf("ORI:||%15p||\n", NULL);
+	printf("%d\n", a);
+	b = ft_printf("FT_:||%15p||\n", NULL);
+	printf("%d\n", b);
+	printf("-----------\n");
 }
