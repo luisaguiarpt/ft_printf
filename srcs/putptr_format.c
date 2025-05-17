@@ -6,14 +6,69 @@
 /*   By: ldias-da <ldias-da@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:08:49 by ldias-da          #+#    #+#             */
-/*   Updated: 2025/04/28 14:38:22 by ldias-da         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:17:49 by ldias-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
+#include "../libft/libft.h"
 
-size_t	ft_putptr(unsigned long int n)
+static size_t	ptrsize(unsigned long int n);
+static size_t	putptr(unsigned long int n);
+static size_t	prt_nil(void);
+
+size_t	putptr_format(unsigned long int n, t_format *format)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	if (!format->minus && format->min > ptrsize(n))
+	{
+		while (i < format->min - ptrsize(n))
+		{
+			write(1, " ", 1);
+			i++;
+			count++;
+		}
+	}
+	count += putptr(n);
+	if (format->minus && format->min > ptrsize(n))
+	{
+		while (i < format->min - ptrsize(n))
+		{
+			write(1, " ", 1);
+			i++;
+			count++;
+		}
+	}
+	return (count);
+}
+
+static size_t	ptrsize(unsigned long int n)
+{
+	unsigned int	count;
+
+	count = 0;
+	if (n == 0)
+		return (5);
+	if (n > 15)
+		count += ptrsize(n / 16);
+	if (count == 0)
+		count += 2;
+	count++;
+	return (count);
+}
+
+static size_t	prt_nil(void)
+{
+	write(1, "(nil)", 5);
+	return (5);
+}
+
+static size_t	putptr(unsigned long int n)
 {
 	unsigned char	c;
 	const char		*hex;
@@ -22,9 +77,9 @@ size_t	ft_putptr(unsigned long int n)
 	count = 0;
 	hex = "0123456789abcdef";
 	if (n == 0)
-		return (ft_putstr("(nil)"));
+		return (prt_nil());
 	if (n > 15)
-		count += ft_putptr(n / 16);
+		count += putptr(n / 16);
 	c = hex[n % 16];
 	if (count == 0)
 	{

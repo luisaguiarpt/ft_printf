@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 static size_t	puthex(unsigned int n, t_format *format);
 static size_t	put_zeros(unsigned int n, t_format *format, int put);

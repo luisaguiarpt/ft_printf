@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 size_t	pos_diff_ui(size_t a, size_t b)
 {
